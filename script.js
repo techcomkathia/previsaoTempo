@@ -1,4 +1,3 @@
-const apiUnsplash = "https://picsum.photos/seed/"
 const apiGeocoding = "https://geocoding-api.open-meteo.com/v1/search?name="
 const apiWeather = "https://api.open-meteo.com/v1/forecast?latitude="
 
@@ -159,38 +158,38 @@ async function buscarCidade(local){
 
 
 /**
- * Obtém informações de descrição e ícone baseado no código de tempo
+ * Obtém informações de descrição, ícone e imagem de fundo baseado no código de tempo
  * @param {number} codigoTempo - Código WMO do tipo de tempo
- * @returns {Object} Objeto com descrição e ícone do tempo
+ * @returns {Object} Objeto com descrição, ícone e imagem do tempo
  */
 function obterTempoInfo(codigoTempo) {
     const temposInfo = {
-        0: { descricao: "Céu limpo", icone: "☀️" },
-        1: { descricao: "Principalmente claro", icone: "🌤️" },
-        2: { descricao: "Parcialmente nublado", icone: "⛅" },
-        3: { descricao: "Nublado", icone: "☁️" },
-        45: { descricao: "Nevoeiro", icone: "🌫️" },
-        48: { descricao: "Nevoeiro com depósito de gelo", icone: "🌫️" },
-        51: { descricao: "Chuvisco leve", icone: "🌧️" },
-        53: { descricao: "Chuvisco moderado", icone: "🌧️" },
-        55: { descricao: "Chuvisco denso", icone: "🌧️" },
-        61: { descricao: "Chuva fraca", icone: "🌧️" },
-        63: { descricao: "Chuva moderada", icone: "🌧️" },
-        65: { descricao: "Chuva forte", icone: "⛈️" },
-        71: { descricao: "Neve fraca", icone: "🌨️" },
-        73: { descricao: "Neve moderada", icone: "🌨️" },
-        75: { descricao: "Neve forte", icone: "🌨️" },
-        77: { descricao: "Grãos de neve", icone: "🌨️" },
-        80: { descricao: "Pancadas de chuva fracas", icone: "🌧️" },
-        81: { descricao: "Pancadas de chuva moderadas", icone: "🌧️" },
-        82: { descricao: "Pancadas de chuva fortes", icone: "⛈️" },
-        85: { descricao: "Pancadas de neve fracas", icone: "🌨️" },
-        86: { descricao: "Pancadas de neve fortes", icone: "🌨️" },
-        95: { descricao: "Trovoada", icone: "⛈️" },
-        96: { descricao: "Trovoada com granizo fraco", icone: "⛈️" },
-        99: { descricao: "Trovoada com granizo forte", icone: "⛈️" }
+        0: { descricao: "Céu limpo", icone: "☀️", imagem: "images/0.jpg" },
+        1: { descricao: "Principalmente claro", icone: "🌤️", imagem: "images/1.jpg" },
+        2: { descricao: "Parcialmente nublado", icone: "⛅", imagem: "images/2.jpg" },
+        3: { descricao: "Nublado", icone: "☁️", imagem: "images/3.jpg" },
+        45: { descricao: "Nevoeiro", icone: "🌫️", imagem: "images/45.jpg" },
+        48: { descricao: "Nevoeiro com depósito de gelo", icone: "🌫️", imagem: "images/48.jpg" },
+        51: { descricao: "Chuvisco leve", icone: "🌧️", imagem: "images/51.jpg" },
+        53: { descricao: "Chuvisco moderado", icone: "🌧️", imagem: "images/52.jpg" },
+        55: { descricao: "Chuvisco denso", icone: "🌧️", imagem: "images/55.jpg" },
+        61: { descricao: "Chuva fraca", icone: "🌧️", imagem: "images/61.jpg" },
+        63: { descricao: "Chuva moderada", icone: "🌧️", imagem: "images/63.jpg" },
+        65: { descricao: "Chuva forte", icone: "⛈️", imagem: "images/65.jpg" },
+        71: { descricao: "Neve fraca", icone: "🌨️", imagem: "images/71.jpg" },
+        73: { descricao: "Neve moderada", icone: "🌨️", imagem: "images/73.jpg" },
+        75: { descricao: "Neve forte", icone: "🌨️", imagem: "images/75.jpg" },
+        77: { descricao: "Grãos de neve", icone: "🌨️", imagem: "images/77.jpg" },
+        80: { descricao: "Pancadas de chuva fracas", icone: "🌧️", imagem: "images/80.jpg" },
+        81: { descricao: "Pancadas de chuva moderadas", icone: "🌧️", imagem: "images/81.jpg" },
+        82: { descricao: "Pancadas de chuva fortes", icone: "⛈️", imagem: "images/65.jpg" },
+        85: { descricao: "Pancadas de neve fracas", icone: "🌨️", imagem: "images/71.jpg" },
+        86: { descricao: "Pancadas de neve fortes", icone: "🌨️", imagem: "images/86.jpg" },
+        95: { descricao: "Trovoada", icone: "⛈️", imagem: "images/95.jpg" },
+        96: { descricao: "Trovoada com granizo fraco", icone: "⛈️", imagem: "images/96.jpg" },
+        99: { descricao: "Trovoada com granizo forte", icone: "⛈️", imagem: "images/99.jpg" }
     };
-    return temposInfo[codigoTempo] || { descricao: "Tempo desconhecido", icone: "🌤️" };
+    return temposInfo[codigoTempo] || { descricao: "Tempo desconhecido", icone: "🌤️", imagem: "images/2.jpg" };
 }
 
 /**
@@ -223,8 +222,7 @@ function exibirNaTela(dados, nomeCidade) {
         elementos.icone.textContent = tempoInfo.icone;
         elementos.icone.style.fontSize = "60px";
         
-        const numeroImagem = nomeCidade.charCodeAt(0) + nomeCidade.length;
-        elementos.corpo.style.backgroundImage = `url("${apiUnsplash}${numeroImagem}/1600/900")`;
+        elementos.corpo.style.backgroundImage = `url("${tempoInfo.imagem}")`;
 
     } catch (erro) {
         const mensagem = tratarErro(erro);
