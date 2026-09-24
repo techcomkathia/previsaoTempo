@@ -85,6 +85,21 @@ function limparCampos() {
 }
 
 /**
+ * Exibe uma notificação (toast) na tela
+ * @param {string} mensagem - Mensagem a exibir
+ * @param {number} duracao - Duração em milissegundos (padrão: 3000ms)
+ */
+function mostrarNotificacao(mensagem, duracao = 3000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = mensagem;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duracao);
+}
+
+/**
  * Busca as coordenadas de uma cidade através da API de geocoding
  * @async
  * @param {string} local - Nome da cidade a buscar
@@ -226,8 +241,7 @@ function pesquisar() {
     const entrada = elementos.inputCidade.value.trim();
     
     if (!entrada) {
-        elementos.cidade.innerHTML = mensagensErro.emptyInput;
-        limparCampos();
+        mostrarNotificacao(mensagensErro.emptyInput, 3000);
         return;
     }
     
